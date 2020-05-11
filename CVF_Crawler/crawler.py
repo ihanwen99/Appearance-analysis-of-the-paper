@@ -28,7 +28,6 @@ class Crawler():
             paper_list = self._parse_papers(i)
             for j in paper_list:
                 self._save_file(j,conf_save_path)
-                time.sleep(2)
 
         workshop_save_path = os.path.join(self.save_path,mode,'workshop')
         os.makedirs(workshop_save_path,exist_ok=True)
@@ -38,7 +37,6 @@ class Crawler():
                 paper_list = self._parse_papers(i)
                 for j in paper_list:
                     self._save_file(j,workshop_save_path)
-                    time.sleep(2)
 
         return
 
@@ -68,17 +66,21 @@ class Crawler():
         return paper_urls
 
     def _save_file(self,url,save_path):
+        pdf_name = url.split('/')[-1]
+        pdf_save_path = os.path.join(save_path,pdf_name)
         try:
-            pdf_name = url.split('/')[-1]
-            with open(os.path.join(save_path,pdf_name),'wb') as f:
-                content = requests.get(url=url,stream=True)
-                for chunk in content.iter_content(1024):
-                    if chunk:
-                        f.write(chunk)
-                print(f'Successfully download {pdf_name}')
+            if not os.path.exists(pdf_save_path):
+                with open(pdf_save_path,'wb') as f:
+                    content = requests.get(url=url,stream=True)
+                    for chunk in content.iter_content(256):
+                        if chunk:
+                            f.write(chunk)
+                    print(f'Successfully download {pdf_name}')
             return 1
         except:
             print(f'Failed while parsing from {url}!')
+            if os.path.exists(pdf_save_path):
+                os.remove(pdf_save_path)
             return 0
 
     def _parse_wokshop_page(self,page_urls):
