@@ -72,7 +72,7 @@ class Crawler():
             pdf_name = url.split('/')[-1]
             with open(os.path.join(save_path,pdf_name),'wb') as f:
                 content = requests.get(url=url,stream=True)
-                for chunk in content.iter_content(512):
+                for chunk in content.iter_content(1024):
                     if chunk:
                         f.write(chunk)
                 print(f'Successfully download {pdf_name}')
