@@ -22,13 +22,13 @@ class Crawler():
         conf_urls = [url_join([self.url,i[2]['conference']]) for i in availble_conf]
         work_urls = [url_join([self.url,i[2]['workshop']]) for i in availble_conf]
 
-        # conf_save_path = os.path.join(self.save_path,mode,'conference')
-        # os.makedirs(conf_save_path,exist_ok=True)
-        # for i in conf_urls:
-        #     paper_list = self._parse_papers(i)
-        #     for j in paper_list:
-        #         self._save_file(j,conf_save_path)
-        #         time.sleep(2)
+        conf_save_path = os.path.join(self.save_path,mode,'conference')
+        os.makedirs(conf_save_path,exist_ok=True)
+        for i in conf_urls:
+            paper_list = self._parse_papers(i)
+            for j in paper_list:
+                self._save_file(j,conf_save_path)
+                time.sleep(2)
 
         workshop_save_path = os.path.join(self.save_path,mode,'workshop')
         os.makedirs(workshop_save_path,exist_ok=True)
