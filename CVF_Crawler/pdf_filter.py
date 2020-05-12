@@ -1,5 +1,6 @@
 
 import os
+import traceback
 from pdfminer.pdfpage import PDFPage
 
 def filter_repeat(main_dir):
@@ -15,10 +16,14 @@ def filter_repeat(main_dir):
 def filter_lack(work_dir):
     work_files = [i for i in os.listdir(work_dir) if i[-4:] =='.pdf']
     for fname in work_files:
-        with open(os.path.join(work_dir,fname), 'rb') as infile:
-            page_num = len(list(PDFPage.get_pages(infile)))
-        if page_num < 7:
-            os.remove(os.path.join(work_dir,fname))
+        try:
+            with open(os.path.join(work_dir,fname), 'rb') as infile:
+                page_num = len(list(PDFPage.get_pages(infile)))
+            if page_num < 7:
+                os.remove(os.path.join(work_dir,fname))
+        except:
+            print(fname)
+            continue
 
 if __name__=='__main__':
     filter_repeat('dataset/train')
