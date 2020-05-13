@@ -12,6 +12,7 @@ dataset/
 */dataset/
 saved_model/
 *.sbatch
+*.out
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
