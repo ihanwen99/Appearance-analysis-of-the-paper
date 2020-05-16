@@ -3,6 +3,7 @@ import torch
 import json,jsonpickle
 import torch.nn as nn
 import copy
+import os
 
 class TreeNode():
     def __init__(self, embedding=None, child_list=None):
@@ -66,3 +67,10 @@ class TextTree(TreeNode):
         with open(load_path, 'r') as f:
             config_dict = f.read()
         return jsonpickle.decode(config_dict)
+
+
+# from text_analyzer import tree
+if __name__ == "__main__":
+    root = "dataset/train"
+    data = os.walk(root)
+    print(data)

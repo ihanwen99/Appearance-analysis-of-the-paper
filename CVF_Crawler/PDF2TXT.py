@@ -78,4 +78,6 @@ def PDFTOTXT(argv):
 
 
 if __name__ == "__main__":
+    print(sys.argv[1:])
     PDFTOTXT(sys.argv[1:])
+    print(sys.argv[1:])
